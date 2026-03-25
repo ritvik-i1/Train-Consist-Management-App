@@ -1,5 +1,24 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+// 🔹 Bogie Class (Custom Object)
+class Bogie {
+    String name;
+    int capacity;
+
+    // Constructor
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
+    }
+
+    // Display format
+    @Override
+    public String toString() {
+        return name + " (" + capacity + " seats)";
+    }
+}
 
 public class TrainConsistManagementApp {
 
@@ -7,22 +26,23 @@ public class TrainConsistManagementApp {
 
         System.out.println("=== Train Consist Management App ===");
 
-        // Create HashMap for bogie → capacity
-        Map<String, Integer> bogieCapacity = new HashMap<>();
+        // 🔹 Create List of Bogies
+        List<Bogie> bogies = new ArrayList<>();
 
-        // 🔹 Adding bogie-capacity pairs
-        bogieCapacity.put("Sleeper", 72);
-        bogieCapacity.put("AC Chair", 60);
-        bogieCapacity.put("First Class", 40);
+        // 🔹 Add passenger bogies
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 60));
+        bogies.add(new Bogie("First Class", 40));
 
-        // Display all bogies with capacity
-        System.out.println("\nBogie Capacity Details:");
+        // Before sorting
+        System.out.println("\nBefore Sorting:");
+        System.out.println(bogies);
 
-        for (Map.Entry<String, Integer> entry : bogieCapacity.entrySet()) {
-            System.out.println(entry.getKey() + " → " + entry.getValue());
-        }
+        // 🔹 Sort using Comparator (by capacity)
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
 
-        // Example lookup
-        System.out.println("\nCapacity of Sleeper: " + bogieCapacity.get("Sleeper"));
+        // After sorting
+        System.out.println("\nAfter Sorting (by capacity):");
+        System.out.println(bogies);
     }
 }
