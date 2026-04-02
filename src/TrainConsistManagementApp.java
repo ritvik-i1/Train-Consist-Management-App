@@ -1,48 +1,52 @@
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
-// 🔹 Bogie Class (Custom Object)
+// Bogie Class
 class Bogie {
-    String name;
+    String type;
     int capacity;
 
-    // Constructor
-    Bogie(String name, int capacity) {
-        this.name = name;
+    public Bogie(String type, int capacity) {
+        this.type = type;
         this.capacity = capacity;
     }
 
-    // Display format
+    public int getCapacity() {
+        return capacity;
+    }
+
     @Override
     public String toString() {
-        return name + " (" + capacity + " seats)";
+        return type + " - Capacity: " + capacity;
     }
 }
 
+// Main Class
 public class TrainConsistManagementApp {
+
+    // UC8: Filter using Stream API
+    public static List<Bogie> filterBogiesByCapacity(List<Bogie> bogies, int threshold) {
+        return bogies.stream()
+                .filter(b -> b.getCapacity() > threshold)   // ✅ core logic
+                .collect(Collectors.toList());
+    }
 
     public static void main(String[] args) {
 
-        System.out.println("=== Train Consist Management App ===");
+        // Step 1: Create bogie list (reuse UC7)
+        List<Bogie> bogies = Arrays.asList(
+                new Bogie("Sleeper", 80),
+                new Bogie("AC Chair", 60),
+                new Bogie("First Class", 100),
+                new Bogie("General", 50)
+        );
 
-        // 🔹 Create List of Bogies
-        List<Bogie> bogies = new ArrayList<>();
+        // Step 2: Apply filter
+        int threshold = 60;
+        List<Bogie> filtered = filterBogiesByCapacity(bogies, threshold);
 
-        // 🔹 Add passenger bogies
-        bogies.add(new Bogie("Sleeper", 72));
-        bogies.add(new Bogie("AC Chair", 60));
-        bogies.add(new Bogie("First Class", 40));
-
-        // Before sorting
-        System.out.println("\nBefore Sorting:");
-        System.out.println(bogies);
-
-        // 🔹 Sort using Comparator (by capacity)
-        bogies.sort(Comparator.comparingInt(b -> b.capacity));
-
-        // After sorting
-        System.out.println("\nAfter Sorting (by capacity):");
-        System.out.println(bogies);
+        // Step 3: Display result
+        System.out.println("Filtered Bogies (Capacity > " + threshold + "):");
+        filtered.forEach(System.out::println);
     }
 }
