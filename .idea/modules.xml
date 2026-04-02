@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TrainConsistManagementApp.java/TrainConsistManagementApp.java.iml" filepath="$PROJECT_DIR$/TrainConsistManagementApp.java/TrainConsistManagementApp.java.iml" />
       <module fileurl="file://$PROJECT_DIR$/TrainConsistMangementApp.iml" filepath="$PROJECT_DIR$/TrainConsistMangementApp.iml" />
     </modules>
   </component>
