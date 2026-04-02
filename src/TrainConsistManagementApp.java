@@ -11,6 +11,10 @@ class Bogie {
         this.capacity = capacity;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public int getCapacity() {
         return capacity;
     }
@@ -24,29 +28,27 @@ class Bogie {
 // Main Class
 public class TrainConsistManagementApp {
 
-    // UC8: Filter using Stream API
-    public static List<Bogie> filterBogiesByCapacity(List<Bogie> bogies, int threshold) {
+    // ✅ UC9 Method: Group bogies by type
+    public static Map<String, List<Bogie>> groupBogiesByType(List<Bogie> bogies) {
         return bogies.stream()
-                .filter(b -> b.getCapacity() > threshold)   // ✅ core logic
-                .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(Bogie::getType));
     }
 
     public static void main(String[] args) {
 
-        // Step 1: Create bogie list (reuse UC7)
         List<Bogie> bogies = Arrays.asList(
                 new Bogie("Sleeper", 80),
                 new Bogie("AC Chair", 60),
+                new Bogie("Sleeper", 75),
                 new Bogie("First Class", 100),
-                new Bogie("General", 50)
+                new Bogie("AC Chair", 65)
         );
 
-        // Step 2: Apply filter
-        int threshold = 60;
-        List<Bogie> filtered = filterBogiesByCapacity(bogies, threshold);
+        Map<String, List<Bogie>> grouped = groupBogiesByType(bogies);
 
-        // Step 3: Display result
-        System.out.println("Filtered Bogies (Capacity > " + threshold + "):");
-        filtered.forEach(System.out::println);
+        System.out.println("Grouped Bogies:");
+        grouped.forEach((type, list) -> {
+            System.out.println(type + " -> " + list);
+        });
     }
 }
