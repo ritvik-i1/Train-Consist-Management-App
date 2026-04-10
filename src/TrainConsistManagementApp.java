@@ -1,28 +1,31 @@
-import java.util.Arrays;
-
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        // UC17: Sort Bogie Names
-        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
+        // UC18: Linear Search for Bogie ID
+        String[] bogieIds = {"BG101","BG205","BG309","BG412","BG550"};
 
-        System.out.println("Before Sorting:");
-        display(bogieNames);
+        String searchKey = "BG309";
 
-        sortBogieNames(bogieNames);
+        boolean found = searchBogie(bogieIds, searchKey);
 
-        System.out.println("After Sorting:");
-        display(bogieNames);
+        if (found) {
+            System.out.println("Bogie ID " + searchKey + " found.");
+        } else {
+            System.out.println("Bogie ID " + searchKey + " not found.");
+        }
     }
 
-    // ✅ Use Case Method
-    public static void sortBogieNames(String[] arr) {
-        Arrays.sort(arr);
-    }
+    // ✅ Linear Search Method
+    public static boolean searchBogie(String[] arr, String key) {
 
-    // ✅ Display Method
-    public static void display(String[] arr) {
-        System.out.println(Arrays.toString(arr));
+        for (int i = 0; i < arr.length; i++) {
+
+            if (arr[i].equals(key)) {
+                return true; // stop immediately when found
+            }
+        }
+
+        return false; // not found
     }
 }
