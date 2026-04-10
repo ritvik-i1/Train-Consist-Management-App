@@ -1,50 +1,42 @@
-import java.util.Arrays;
-
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        // UC19: Binary Search for Bogie ID
-        String[] bogieIds = {"BG309","BG101","BG550","BG205","BG412"};
+        // UC20: Search with validation
+        String[] bogieIds = {"BG101","BG205","BG309"};
 
         String searchKey = "BG205";
 
-        boolean found = binarySearchBogie(bogieIds, searchKey);
+        try {
+            boolean found = searchBogie(bogieIds, searchKey);
 
-        if (found) {
-            System.out.println("Bogie ID " + searchKey + " found.");
-        } else {
-            System.out.println("Bogie ID " + searchKey + " not found.");
+            if (found) {
+                System.out.println("Bogie ID " + searchKey + " found.");
+            } else {
+                System.out.println("Bogie ID " + searchKey + " not found.");
+            }
+
+        } catch (IllegalStateException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
-    // ✅ Binary Search Method
-    public static boolean binarySearchBogie(String[] arr, String key) {
+    // ✅ Search with fail-fast validation
+    public static boolean searchBogie(String[] arr, String key) {
 
-        // Step 1: Handle empty array
-        if (arr.length == 0) return false;
+        // 🔴 Fail-fast check
+        if (arr.length == 0) {
+            throw new IllegalStateException("No bogies available to search.");
+        }
 
-        // Step 2: Sort array (important precondition)
-        Arrays.sort(arr);
+        // Linear search (can also reuse UC18/UC19 logic)
+        for (int i = 0; i < arr.length; i++) {
 
-        int low = 0;
-        int high = arr.length - 1;
-
-        while (low <= high) {
-
-            int mid = (low + high) / 2;
-
-            int cmp = key.compareTo(arr[mid]);
-
-            if (cmp == 0) {
-                return true; // found
-            } else if (cmp < 0) {
-                high = mid - 1; // search left
-            } else {
-                low = mid + 1; // search right
+            if (arr[i].equals(key)) {
+                return true;
             }
         }
 
-        return false; // not found
+        return false;
     }
 }
