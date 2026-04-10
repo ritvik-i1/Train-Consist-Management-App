@@ -1,39 +1,28 @@
+import java.util.Arrays;
+
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        int[] capacities = {72, 56, 24, 70, 60};
+        // UC17: Sort Bogie Names
+        String[] bogieNames = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
 
         System.out.println("Before Sorting:");
-        display(capacities);
+        display(bogieNames);
 
-        sortCapacities(capacities);
+        sortBogieNames(bogieNames);
 
         System.out.println("After Sorting:");
-        display(capacities);
+        display(bogieNames);
     }
 
-    // ✅ Bubble Sort
-    public static void sortCapacities(int[] arr) {
-        int n = arr.length;
-
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-
-                if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
-            }
-        }
+    // ✅ Use Case Method
+    public static void sortBogieNames(String[] arr) {
+        Arrays.sort(arr);
     }
 
-    // ✅ Display
-    public static void display(int[] arr) {
-        for (int val : arr) {
-            System.out.print(val + " ");
-        }
-        System.out.println();
+    // ✅ Display Method
+    public static void display(String[] arr) {
+        System.out.println(Arrays.toString(arr));
     }
 }
