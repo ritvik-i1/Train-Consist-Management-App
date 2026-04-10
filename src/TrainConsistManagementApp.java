@@ -1,65 +1,39 @@
-// TrainConsistManagementApp.java
-
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
 
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
+        int[] capacities = {72, 56, 24, 70, 60};
 
-        // Safe assignment
-        b1.assignCargo("Petroleum");
+        System.out.println("Before Sorting:");
+        display(capacities);
 
-        // Unsafe assignment (handled safely)
-        b2.assignCargo("Petroleum");
+        sortCapacities(capacities);
 
-        // Program continues
-        System.out.println("Program continues after handling exception...");
-    }
-}
-
-// ✅ Custom Runtime Exception
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
-
-// ✅ Goods Bogie Class
-class GoodsBogie {
-    private String type;
-    private String cargo;
-
-    public GoodsBogie(String type) {
-        this.type = type;
+        System.out.println("After Sorting:");
+        display(capacities);
     }
 
-    public String getCargo() {
-        return cargo;
-    }
+    // ✅ Bubble Sort
+    public static void sortCapacities(int[] arr) {
+        int n = arr.length;
 
-    public void assignCargo(String cargo) {
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
 
-        try {
-            // ❌ Unsafe condition
-            if (cargo.equalsIgnoreCase("Petroleum") &&
-                    type.equalsIgnoreCase("Rectangular")) {
-
-                throw new CargoSafetyException(
-                        "Unsafe: Cannot load Petroleum in Rectangular bogie");
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
             }
-
-            // ✅ Safe assignment
-            this.cargo = cargo;
-            System.out.println("Cargo '" + cargo + "' assigned to " + type + " bogie");
-
-        } catch (CargoSafetyException e) {
-            // ✅ Exception handled
-            System.out.println("Error: " + e.getMessage());
-
-        } finally {
-            // ✅ Always executes
-            System.out.println("Cargo assignment attempt completed for " + type + " bogie");
         }
+    }
+
+    // ✅ Display
+    public static void display(int[] arr) {
+        for (int val : arr) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
     }
 }
